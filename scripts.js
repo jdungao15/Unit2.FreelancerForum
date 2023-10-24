@@ -16,7 +16,7 @@ async function fetchData() {
 
 async function main () {
     const freelancers = await fetchData();
-    const contractorInfo = document.querySelector(".contractors-list")
+    const contractorInfo = document.querySelector("#contractors-list")
     //Initial State
     let initialState = freelancers[0];
 
@@ -36,20 +36,21 @@ async function main () {
 
     // Functions
     const getAverage = () => {
-        const parentContainer = document.querySelector('#title');
+        const parentContainer = document.querySelector('#avg-price-container');
         const avgElem = document.querySelector("#avg-price")
         const priceList = document.querySelectorAll(".contractor-price");
         const prices = [...priceList];
-
+        console.log(parentContainer)
         let avg = (prices
             .map(price => Number(price.textContent.substring(1, price.textContent.length)))
             .reduce((acc, currVal) => acc + currVal)) /prices.length;
 
         if (avgElem) {
-            avgElem.textContent = Math.round(avg);
+            avgElem.textContent = `$${Math.round(avg)}`
         } else {
             const avgElem = document.createElement('h3');
-            avgElem.textContent = Math.round(avg);
+            avgElem.textContent = `$${Math.round(avg)}`;
+            avgElem.className = "display-3 ms-5"
             avgElem.id = 'avg-price'
             parentContainer.appendChild(avgElem)
         }
@@ -62,47 +63,50 @@ async function main () {
         chars[0] = chars[0].toUpperCase();
         return str = chars.join("")
     }
-    const createContractorElem = ({name, price, occupation}) => {
-            // Container
-            const container = document.createElement('div');
-            container.className = "contractor-info";
+    const createContractorElem = ({name, price, occupation}, i) => {
+        //NOTE c -> contractor for naming
+        
+        // Container
+        const cContainer = document.createElement('tr');
+        cContainer.className = "contractor-info";
 
-            //Contractor Info
-            const cName = document.createElement('p')
-            cName.className = 'contractor-name'
-            cName.textContent = name;
-            const cPrice = document.createElement('p');
-            cPrice.className = 'contractor-price'
-            cPrice.textContent = `$${price}`;
-            const cOccupation = document.createElement('p')
-            cOccupation.className = 'contractor-occupation'
-            cOccupation.textContent = capitalize(occupation);
+        //Contractor Info
+        const cName = document.createElement('td')
+        cName.className = 'contractor-name'
+        cName.textContent = name;
+        const cPrice = document.createElement('td');
+        cPrice.className = 'contractor-price'
+        cPrice.textContent = `$${price}`;
+        const cOccupation = document.createElement('td')
+        cOccupation.className = 'contractor-occupation'
+        cOccupation.textContent = capitalize(occupation);
+        const cID = document.createElement('td');
+        cID.textContent = i;
 
-            // Append Contractor info to container
-            container.appendChild(cName)
-            container.appendChild(cPrice)
-            container.appendChild(cOccupation)
-            
-            contractorInfo.append(container)
+        // Append Contractor info to container
+        cContainer.appendChild(cID);
+        cContainer.appendChild(cName)
+        cContainer.appendChild(cPrice)
+        cContainer.appendChild(cOccupation)
+       
+        
+        contractorInfo.append(cContainer)
             //Append to the parent container\
             
     }
     const appendToDOM = (arr) => {
         if(arr.length > 2) {
-            arr.forEach((freelancer, i ) => {
+            arr.forEach((freelancer, i) => {
                 setTimeout(() => {
-                    createContractorElem(freelancer)
+                    createContractorElem(freelancer, i + 2)
                     getAverage()
                 },i * 1500)
             })
         } else {
-            arr.forEach(freelancer => createContractorElem(freelancer))
+            arr.forEach((freelancer, i) => createContractorElem(freelancer, i))
         }
     
     }
-
-
-
 
     appendToDOM(initialState);
     appendToDOM(freelancers);

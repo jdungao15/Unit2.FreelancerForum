@@ -8,15 +8,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header id="title">
-        <h1>Freelancer forum</h1>
-        <h3>The average price is <span></span></h3>
-    </header>
-    <main>
-        <h1>Available Freelancers</h1>
-        <div class="contractors-list">
-
+   
+    <main class="container-lg">
+        <header id="title">
+        <h1 class="display-1 text-center mb-5">Freelancer Forum</h1>
+        <div id="avg-price-container">
+            <h3 class="text-center display-3">The average price is</h3>
         </div>
+      
+        </header>
+        <h3 class="display-5 dt">Available Freelancers</h3>
+        <!-- <div class="contractors-list">
+
+        </div> -->
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -26,24 +30,7 @@
                 <th scope="col">Starting Price</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                </tr>
+            <tbody id="contractors-list" class="contractors">
             </tbody>
         </table>
     </main>
