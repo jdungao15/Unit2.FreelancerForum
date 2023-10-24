@@ -43,7 +43,7 @@ async function main () {
 
         let avg = (prices
             .map(price => Number(price.textContent.substring(1, price.textContent.length)))
-            .reduce((acc, currVal) => acc + currVal, 0)) /prices.length;
+            .reduce((acc, currVal) => acc + currVal)) /prices.length;
 
         if (avgElem) {
             avgElem.textContent = Math.round(avg);
